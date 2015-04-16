@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CSS3 Selectors for Internet Explorer 6 and 7 - Darlesson Oliveira</title>
+
+<link type="text/css" rel="stylesheet" href="css/styles.css" />
+
+<script type="text/javascript" src="javascript/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="../source/CSS3-Selector4-IE-0.9.0.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("[value='Activate']").click(function(){
+		$.CSS3ForIE();
+	});
+
+});
+</script>
+
+<style type="text/css">
+ul.CSS3, ul.CSS3 ul{ border:solid 1px #BBB; border-bottom:none; list-style:none; width:200px; padding-left:0px; margin:0px 0px;}
+ul.CSS3 li{ padding:6px 10px 6px 10px; position:relative; border-bottom:solid 1px #BBB; background-color:#FFF;}
+ul.CSS3 ul{ display:none; position:absolute; bottom:-1px; right:-202px;}
+ul.CSS3 li:hover > ul{ display:block; selector:ul.CSS3 li:hover > ul;}
+ul.CSS3 > li:nth-child(odd), ul.CSS3 ul > li:nth-child(odd){ background-color:#CEE7B6; selector:ul.CSS3 > li:nth-child(odd), ul.CSS3 ul > li:nth-child(odd);}
+ul.CSS3 > li:nth-child(even), ul.CSS3 ul > li:nth-child(even){ background-color:#DFFFBF; selector:ul.CSS3 > li:nth-child(even), ul.CSS3 ul > li:nth-child(even);}
+ul.CSS3 li:hover{ padding:6px 10px 6px 16px; background-color:#FFFF99 !important; font-style:italic;}
+</style>
+
+</head>
+
+<body>
+
+	<em>CSS3 Selectors for Internet Explorer v0.9.0 (Beta version). Copyright 2010, <a href="http://darlesson.com/" target="_blank">Darlesson Oliveira</a>. Dual licensed under the MIT and GPL licenses.</em>
+
+	<h1>CSS3 Selectors for Internet Explorer</h1>
+
+    <p>
+    	For those who could style a website with CSS3 using modern browsers and get amazed with its evolution,
+        probably got frustated with all Internet Explorer's versions not accepting its features and even part or none of its selectors
+        (read IE6). I don't like to stopgap anything but I got the conclusion that Internet Explorer should not be our limit
+        for the web. I usually even refuse to call it as a browser considering that browsers are supposed to follow W3C rules or at
+        least work as it demands. With the intention to keep what I did for all browsers the most intact as I could and considering
+        that IE itself it's not compatible with the modern internet and not my websites incompatible with IE, I created a code
+        that helps IE to read CSS3 selectors without making a big change in the original HTML and stylesheets.
+    </p>
+
+    <p>
+    	This code doesn't make CSS3 properties to work in Internet Explorer. It only helps IE to recognize the selectors.
+    </p>
+
+    <div class="title" style="margin-top:20px;">
+    	<h2>Understanding</h2>
+    </div>
+
+    <ul>
+    	<li>
+        	When a CSS selector is not supported by Internet Explorer 6 and 7, they will return <em>unknown</em>. The same doesn't
+            happen with IE 8. It doesn't return anything. Because of that the class can not be found.
+        </li>
+        <li>
+        	Because IE 8 can not consider the existence of any CSS selector not supported by it, we need to activate the IE7 compatibility
+            adding the HTTP meta-tag <em>&lt;meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /></em> as the <b>first element</b> in your
+            <em>&lt;head /></em>.
+        </li>
+        <li>
+        	In your CSS classes using <a href="http://www.css3.info/selectors-test/" target="_blank">CSS3 selectors</a> you need to add in the last
+            position the property <em>selector</em>. In this property just copy and paste the selector to it. Example: <em>div:nth-child(odd){ background-color:#CCC; selector:div:nth-child(odd); }</em>.
+        </li>
+        <li>
+        	Call <em>$.CSS3ForIE();</em>. This code will read your CSS files, find the selector properties, copy their value, make them jQuery selectors and
+            apply.
+        </li>
+        <li>
+        	The selector must be a <a href="http://api.jquery.com/category/selectors/" target="_blank">jQuery valid selector</a>. The only expection is :hover. This plugin makes the necessary adjustment to accept it.
+        </li>
+    </ul>
+
+    <div class="title" style="margin-top:20px;">
+    	<h2>Installing</h2>
+    </div>
+
+    <p>
+    	Add the following files to your HTML
+    </p>
+
+<pre class="code" style="display:block;"><code class="javascript">
+    // If you don't have the jQuery file already informed, insert the code bellow
+    &lt;script type="text/javascript" src="javascript/jquery-1.4.2.min.js">&lt;/script>
+
+    // Insert the following code after the jQuery code in your website if you prefer the compact version or ...
+    &lt;script type="text/javascript" src="source/CSS3-Selector4-IE-0.9.0-min.js">&lt;/script>
+
+    // ... insert the following if you prefer the development version
+    &lt;script type="text/javascript" src="source/CSS3-Selector4-IE-0.9.0.js">&lt;/script>
+
+</code></pre>
+
+
+    <div class="title" style="margin-top:20px;">
+    	<h2>Usage</h2>
+    </div>
+
+    <p>
+    	First add the call for the extension in your HTML and the meta-tag to activate IE7 compatibility mode as the first element in the tag head.
+    </p>
+
+<pre class="code" style="display:block;"><code class="javascript">
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+    &lt;script type="text/javascript">
+    $(document).ready(function(){
+
+        $.CSS3ForIE();
+
+    });
+    &lt;/script>
+
+</code></pre>
+
+	<p>
+    	Now find the CSS3 selectors in your stylesheets and add the selector attribute and paste the class attribute to it.
+    </p>
+
+<pre class="code" style="display:block;"><code class="javascript">
+    // It adds a background-color to the first line for all tables
+    table{ border:solid 1px #333; }
+    table > tr{ background-color:#F00; selector:table > tr; }
+
+    // It adds a background-color to every odd cell
+    td:nth-child(odd){ background-color:#CCC; selector:td:nth-child(odd); }
+
+    // It adds a background-color to the last line
+    tr:last-child{ background-color:#F00; selector:tr:last-child; }
+
+</code></pre>
+
+    <div class="title" style="margin-top:20px;">
+    	<h2>Support</h2>
+    </div>
+
+    <p>
+    	This code is free of charge under the MIT and GPL licenses. But if you think it helped you saving your time,
+        please support me financially or adding my website link (http://darlesson.com/) in yours to keep sharing, creating and improving my codes.
+    </p>
+
+    <p>
+    	To report bugs, send comments or suggestions please go to <a href="http://darlesson.com/contact/" target="_blank">my contact page</a>.
+    </p>
+
+	<a href="http://darlesson.com/donate/" target="_blank"><img src="images/btn_donate_LG.gif" alt="Support through donation" /></a>
+
+    <h1>Example</h1>
+
+    <p>
+    	Using Internet Explorer, activate CSS3ForIE clicking on the button below.
+    </p>
+
+    <p>
+        <input type="button" value="Activate" />
+    </p>
+
+    <p>
+        <ul class="CSS3">
+            <li>Canada
+                <ul>
+                    <li>Bristh Columbia</li>
+                    <li>Ontario</li>
+                    <li>Alberta</li>
+                    <li>Québéc</li>
+                </ul>
+            </li>
+            <li>Portuguese
+                <ul>
+                    <li>Brazil</li>
+                    <li>Angola</li>
+                    <li>Mozambique</li>
+                    <li>East Timor</li>
+                </ul>
+            </li>
+            <li>Spanish
+                <ul>
+                    <li>Argentina</li>
+                    <li>Mexico</li>
+                    <li>Peru</li>
+                    <li>Colombia</li>
+                    <li>Ecuador</li>
+                </ul>
+            </li>
+            <li>Continents
+                <ul>
+                    <li>Africa
+                        <ul>
+                            <li>South Africa</li>
+                            <li>Angola</li>
+                            <li>Nigeria</li>
+                        </ul>
+                    </li>
+                    <li>Asia
+                        <ul>
+                            <li>Japan</li>
+                            <li>Vietnan</li>
+                            <li>South Korea</li>
+                        </ul>
+                    </li>
+                    <li>Europe
+                        <ul>
+                            <li>Portugal</li>
+                            <li>Germany</li>
+                        </ul>
+                    </li>
+                    <li>South America
+                        <ul>
+                            <li>Brazil</li>
+                            <li>Argentina</li>
+                            <li>Chile</li>
+                        </ul>
+                    </li>
+                    <li>Oceania
+                        <ul>
+                            <li>Austrália</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Languages
+                <ul>
+                    <li>Portuguese</li>
+                    <li>English</li>
+                    <li>French</li>
+                    <li>Spanish</li>
+                </ul>
+            </li>
+        </ul>
+    </p>
+
+<pre class="code" style="display:block;"><code class="javascript">
+    &lt;style type="text/css">
+    ul.CSS3, ul.CSS3 ul{ border:solid 1px #BBB; border-bottom:none; list-style:none; width:200px; padding-left:0px; margin:0px 0px;}
+    ul.CSS3 li{ padding:6px 10px 6px 10px; position:relative; border-bottom:solid 1px #BBB; background-color:#FFF;}
+    ul.CSS3 ul{ display:none; position:absolute; bottom:-1px; right:-202px;}
+    ul.CSS3 li:hover > ul{
+    	display:block;
+        selector:ul.CSS3 li:hover > ul;
+    } /* This jQuery extension simulates hover effect */
+    ul.CSS3 > li:nth-child(odd), ul.CSS3 ul > li:nth-child(odd){
+    	background-color:#CEE7B6;
+        selector:ul.CSS3 > li:nth-child(odd), ul.CSS3 ul > li:nth-child(odd);
+    } /* nth-child is not or poorly supported by IE */
+    ul.CSS3 > li:nth-child(even), ul.CSS3 ul > li:nth-child(even){
+    	background-color:#DFFFBF;
+        selector:ul.CSS3 > li:nth-child(even), ul.CSS3 ul > li:nth-child(even);
+    }
+    ul.CSS3 li:hover{ padding:6px 10px 6px 16px; background-color:#FFFF99 !important; font-style:italic;}
+    &lt;/style>
+
+</code></pre>
+
+</body>
+</html>
